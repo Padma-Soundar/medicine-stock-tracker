@@ -1,0 +1,5 @@
+duckdb
+fastapi
+uvicorn
+pydantic
+python-multipart

@@ -1,0 +1,16 @@
+# Virtual environment
+venv/
+
+# DuckDB database file (local data, not code)
+*.db
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Environment variables
+.env
