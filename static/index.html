@@ -1,201 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Medicine Stock Tracker</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #f0f4f0;
-      --card: #ffffff;
-      --green: #2d6a4f;
-      --green-light: #52b788;
-      --green-pale: #d8f3dc;
-      --red: #bc4749;
-      --red-pale: #ffe5e5;
-      --amber: #e07c00;
-      --amber-pale: #fff3cd;
-      --text: #1b2e24;
-      --muted: #6b7f73;
-      --border: #cde0d3;
-      --shadow: 0 2px 16px rgba(45,106,79,0.10);
+      --bg:           #f0f4f0;
+      --card:         #ffffff;
+      --green:        #2d6a4f;
+      --green-mid:    #40916c;
+      --green-light:  #52b788;
+      --green-pale:   #d8f3dc;
+      --yellow:       #e9c46a;
+      --amber:        #e07c00;
+      --amber-pale:   #fff3cd;
+      --red:          #bc4749;
+      --red-pale:     #ffe5e5;
+      --disabled-bg:  #f5f5f5;
+      --disabled-txt: #aaa;
+      --text:         #1b2e24;
+      --muted:        #6b7f73;
+      --border:       #cde0d3;
+      --shadow:       0 2px 20px rgba(45,106,79,0.10);
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    /* HEADER */
     header {
       background: var(--green);
       color: white;
       padding: 28px 40px 24px;
-      display: flex;
-      align-items: flex-end;
-      gap: 14px;
+      display: flex; align-items: flex-end; gap: 14px;
     }
-    header .pill {
-      background: var(--green-light);
-      border-radius: 50%;
-      width: 48px; height: 48px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-    }
-    header h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      line-height: 1;
-    }
-    header p { font-size: 0.88rem; opacity: 0.75; margin-top: 4px; }
+    header .icon { background: var(--green-light); border-radius: 50%; width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    header h1 { font-family: 'DM Serif Display', serif; font-size: 2rem; line-height: 1; }
+    header p  { font-size: 0.88rem; opacity: 0.75; margin-top: 4px; }
 
-    /* LAYOUT */
-    .page { max-width: 960px; margin: 0 auto; padding: 36px 24px 60px; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 36px 24px 60px; }
 
-    /* FORM CARD */
     .card {
-      background: var(--card);
-      border-radius: 16px;
-      padding: 32px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      margin-bottom: 36px;
+      background: var(--card); border-radius: 16px;
+      padding: 32px; box-shadow: var(--shadow);
+      border: 1px solid var(--border); margin-bottom: 32px;
     }
-    .card h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      color: var(--green);
-      margin-bottom: 24px;
+    .card-title {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      color: var(--green); margin-bottom: 24px;
       display: flex; align-items: center; gap: 8px;
     }
 
-    .form-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-    @media(max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+    /* FORM */
+    .form-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    @media(max-width:640px){ .form-grid { grid-template-columns: 1fr; } }
 
-    label { display: block; font-size: 0.82rem; font-weight: 600;
-            color: var(--muted); margin-bottom: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
-
+    label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--muted);
+            margin-bottom: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
     input {
-      width: 100%;
-      padding: 12px 14px;
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      font-size: 0.97rem;
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      transition: border 0.2s, box-shadow 0.2s;
-      outline: none;
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 0.97rem; font-family: 'DM Sans', sans-serif;
+      color: var(--text); background: var(--bg);
+      transition: border 0.2s, box-shadow 0.2s; outline: none;
     }
     input:focus { border-color: var(--green-light); box-shadow: 0 0 0 3px rgba(82,183,136,0.15); }
     input.error { border-color: var(--red); }
+    .err { font-size: 0.78rem; color: var(--red); margin-top: 4px; min-height: 16px; }
 
-    .error-msg {
-      font-size: 0.8rem;
-      color: var(--red);
-      margin-top: 4px;
-      min-height: 18px;
+    .btn {
+      padding: 11px 22px; border-radius: 10px; border: none;
+      font-size: 0.92rem; font-weight: 600; font-family: 'DM Sans', sans-serif;
+      cursor: pointer; transition: all 0.18s; display: inline-flex; align-items: center; gap: 7px;
     }
-
-    .btn-add {
-      background: var(--green);
-      color: white;
-      border: none;
-      padding: 13px 32px;
-      border-radius: 10px;
-      font-size: 0.97rem;
-      font-weight: 600;
-      font-family: 'DM Sans', sans-serif;
-      cursor: pointer;
-      transition: background 0.18s, transform 0.12s;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .btn-add:hover { background: #235c42; transform: translateY(-1px); }
-    .btn-add:active { transform: translateY(0); }
-    .btn-add:disabled { background: #aac4b4; cursor: not-allowed; transform: none; }
-
-    /* TOAST */
-    #toast {
-      position: fixed; top: 24px; right: 24px;
-      padding: 14px 22px; border-radius: 12px;
-      font-weight: 500; font-size: 0.92rem;
-      opacity: 0; pointer-events: none;
-      transition: opacity 0.3s;
-      z-index: 999;
-      max-width: 320px;
-    }
-    #toast.show { opacity: 1; }
-    #toast.success { background: var(--green); color: white; }
-    #toast.fail { background: var(--red); color: white; }
+    .btn-primary { background: var(--green); color: white; }
+    .btn-primary:hover { background: #235c42; transform: translateY(-1px); }
+    .btn-primary:disabled { background: #aac4b4; cursor: not-allowed; transform: none; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; }
+    .btn-restock { background: var(--green-pale); color: var(--green); border: 1.5px solid var(--green-light); }
+    .btn-restock:hover { background: var(--green-light); color: white; }
+    .btn-disable { background: var(--amber-pale); color: var(--amber); border: 1.5px solid var(--yellow); }
+    .btn-disable:hover { background: var(--yellow); color: #7a4f00; }
+    .btn-resume { background: var(--green-pale); color: var(--green); border: 1.5px solid var(--green-light); }
+    .btn-resume:hover { background: var(--green-light); color: white; }
 
     /* REPORT */
-    .report-header {
-      display: flex; align-items: center; justify-content: space-between;
-      margin-bottom: 16px; flex-wrap: wrap; gap: 10px;
-    }
-    .report-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      color: var(--green);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .badge {
-      background: var(--green-pale);
-      color: var(--green);
-      border-radius: 20px;
-      padding: 3px 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
+    .report-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .badge { background: var(--green-pale); color: var(--green); border-radius: 20px; padding: 3px 12px; font-size: 0.8rem; font-weight: 600; }
 
-    /* TABLE */
     .table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
     thead { background: var(--green); color: white; }
-    thead th {
-      padding: 13px 16px; text-align: left;
-      font-weight: 600; font-size: 0.82rem;
-      letter-spacing: 0.05em; text-transform: uppercase;
-      white-space: nowrap;
-    }
+    thead th { padding: 12px 14px; text-align: left; font-weight: 600;
+               font-size: 0.76rem; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; }
     tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
     tbody tr:last-child { border-bottom: none; }
     tbody tr:hover { background: var(--green-pale); }
-    tbody td { padding: 13px 16px; vertical-align: middle; }
+    tbody tr.disabled-row { background: var(--disabled-bg); opacity: 0.7; }
+    tbody tr.disabled-row:hover { background: #ececec; }
+    tbody td { padding: 12px 14px; vertical-align: middle; }
+    tbody tr.disabled-row td { color: var(--disabled-txt); }
 
-    .status-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      padding: 4px 10px; border-radius: 20px;
-      font-size: 0.78rem; font-weight: 600;
-    }
-    .status-urgent { background: var(--red-pale); color: var(--red); }
-    .status-soon   { background: var(--amber-pale); color: var(--amber); }
-    .status-ok     { background: var(--green-pale); color: var(--green); }
+    /* STOCK BAR */
+    .stock-bar-wrap { display: flex; align-items: center; gap: 8px; min-width: 120px; }
+    .stock-bar-bg { flex: 1; height: 8px; background: #e0e0e0; border-radius: 99px; overflow: hidden; }
+    .stock-bar-fill { height: 100%; border-radius: 99px; transition: width 0.5s ease; }
+    .bar-high   { background: var(--green-light); }
+    .bar-medium { background: var(--yellow); }
+    .bar-low    { background: var(--amber); }
+    .bar-critical { background: var(--red); }
+    .stock-label { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
 
-    .btn-del {
-      background: none; border: 1.5px solid var(--border);
-      border-radius: 8px; padding: 5px 10px;
-      cursor: pointer; font-size: 0.85rem; color: var(--muted);
-      transition: all 0.15s;
+    /* RESTOCK INDICATOR */
+    .restock-wrap { display: flex; flex-direction: column; gap: 4px; }
+    .restock-date { font-weight: 600; font-size: 0.88rem; }
+    .days-indicator {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 2px 8px; border-radius: 20px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.03em;
+      width: fit-content;
     }
-    .btn-del:hover { border-color: var(--red); color: var(--red); background: var(--red-pale); }
+    .days-3 { background: var(--green-pale); color: var(--green); }
+    .days-2 { background: var(--amber-pale); color: var(--amber); }
+    .days-1 { background: var(--red-pale); color: var(--red); }
+    .days-overdue { background: var(--red); color: white; }
+    .days-ok { background: var(--green-pale); color: var(--green-mid); }
 
-    .empty {
-      text-align: center; padding: 48px 24px;
-      color: var(--muted); font-size: 0.95rem;
-    }
+    /* RESTOCK MODAL */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35);
+               display: flex; align-items: center; justify-content: center; z-index: 100;
+               opacity: 0; pointer-events: none; transition: opacity 0.2s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: white; border-radius: 16px; padding: 32px; width: 340px;
+             box-shadow: 0 8px 40px rgba(0,0,0,0.18); transform: translateY(16px);
+             transition: transform 0.2s; }
+    .overlay.open .modal { transform: translateY(0); }
+    .modal h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--green); margin-bottom: 6px; }
+    .modal p  { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; }
+    .modal-actions { display: flex; gap: 10px; margin-top: 20px; justify-content: flex-end; }
+    .btn-cancel { background: var(--bg); color: var(--muted); border: 1.5px solid var(--border); }
+    .btn-cancel:hover { background: var(--border); }
+
+    /* TOAST */
+    #toast { position: fixed; top: 24px; right: 24px; padding: 14px 22px; border-radius: 12px;
+             font-weight: 500; font-size: 0.92rem; opacity: 0; pointer-events: none;
+             transition: opacity 0.3s; z-index: 999; max-width: 320px; }
+    #toast.show { opacity: 1; }
+    #toast.success { background: var(--green); color: white; }
+    #toast.fail    { background: var(--red);   color: white; }
+
+    .empty { text-align: center; padding: 48px 24px; color: var(--muted); font-size: 0.95rem; }
     .empty span { font-size: 2.5rem; display: block; margin-bottom: 10px; }
 
-    .spinner { display: inline-block; width: 16px; height: 16px;
+    .spinner { display: inline-block; width: 15px; height: 15px;
       border: 2px solid #fff; border-top-color: transparent;
       border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -204,36 +162,36 @@
 <body>
 
 <header>
-  <div class="pill">💊</div>
+  <div class="icon">💊</div>
   <div>
     <h1>Medicine Stock Tracker</h1>
-    <p>Track your medicines — know exactly when to restock</p>
+    <p>Track stock levels · Know when to restock · Never run out</p>
   </div>
 </header>
 
 <div class="page">
 
-  <!-- FORM -->
+  <!-- ADD FORM -->
   <div class="card">
-    <h2>➕ Add Medicine</h2>
+    <div class="card-title">➕ Add Medicine</div>
     <div class="form-grid">
       <div>
         <label for="name">Medicine Name</label>
-        <input type="text" id="name" placeholder="e.g. Paracetamol 500mg" />
-        <div class="error-msg" id="err-name"></div>
+        <input type="text" id="name" placeholder="e.g. Paracetamol 500mg"/>
+        <div class="err" id="err-name"></div>
       </div>
       <div>
-        <label for="stock">Stock Quantity</label>
-        <input type="number" id="stock" placeholder="e.g. 30" min="1" max="10000" />
-        <div class="error-msg" id="err-stock"></div>
+        <label for="stock">Stock Quantity (pills)</label>
+        <input type="number" id="stock" placeholder="e.g. 30" min="1" max="10000"/>
+        <div class="err" id="err-stock"></div>
       </div>
       <div>
         <label for="doses">Doses Per Day</label>
-        <input type="number" id="doses" placeholder="e.g. 2" min="1" max="20" />
-        <div class="error-msg" id="err-doses"></div>
+        <input type="number" id="doses" placeholder="e.g. 2" min="1" max="20"/>
+        <div class="err" id="err-doses"></div>
       </div>
     </div>
-    <button class="btn-add" id="addBtn" onclick="addMedicine()">
+    <button class="btn btn-primary" id="addBtn" onclick="addMedicine()">
       <span>Add & Calculate</span>
     </button>
   </div>
@@ -241,7 +199,7 @@
   <!-- REPORT -->
   <div class="card">
     <div class="report-header">
-      <h2>📋 Stock Report</h2>
+      <div class="card-title" style="margin-bottom:0">📋 Stock Report</div>
       <span class="badge" id="count-badge">0 medicines</span>
     </div>
     <div class="table-wrap">
@@ -250,12 +208,12 @@
           <tr>
             <th>#</th>
             <th>Medicine</th>
-            <th>Stock (qty)</th>
+            <th>Stock Level</th>
             <th>Doses/Day</th>
+            <th>Added</th>
             <th>Finish Date</th>
-            <th>Restock Date</th>
-            <th>Status</th>
-            <th></th>
+            <th>Restock By</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="report-body">
@@ -267,25 +225,37 @@
 
 </div>
 
+<!-- RESTOCK MODAL -->
+<div class="overlay" id="restockOverlay">
+  <div class="modal">
+    <h3>🔄 Restock Medicine</h3>
+    <p id="modal-desc">Enter the number of pills you are adding to the current stock.</p>
+    <label for="restock-qty">Pills to Add</label>
+    <input type="number" id="restock-qty" placeholder="e.g. 30" min="1" max="10000"/>
+    <div class="err" id="err-restock"></div>
+    <div class="modal-actions">
+      <button class="btn btn-sm btn-cancel" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-sm btn-primary" onclick="confirmRestock()">✅ Confirm Restock</button>
+    </div>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
-  const API = "";  // same origin — FastAPI serves this page
+  let currentRestockId = null;
+  let currentRestockName = "";
 
   function showToast(msg, type = "success") {
     const t = document.getElementById("toast");
     t.textContent = msg;
     t.className = "show " + type;
-    setTimeout(() => t.className = "", 3000);
+    setTimeout(() => t.className = "", 3200);
   }
 
-  function clearErrors() {
-    ["err-name","err-stock","err-doses"].forEach(id => {
-      document.getElementById(id).textContent = "";
-    });
-    ["name","stock","doses"].forEach(id => {
-      document.getElementById(id).classList.remove("error");
-    });
+  function clearFormErrors() {
+    ["err-name","err-stock","err-doses"].forEach(id => document.getElementById(id).textContent = "");
+    ["name","stock","doses"].forEach(id => document.getElementById(id).classList.remove("error"));
   }
 
   function validate() {
@@ -293,54 +263,42 @@
     const name  = document.getElementById("name").value.trim();
     const stock = parseInt(document.getElementById("stock").value);
     const doses = parseInt(document.getElementById("doses").value);
-
     if (!name || name.length < 2) {
-      document.getElementById("err-name").textContent = "Enter a valid medicine name (min 2 chars)";
-      document.getElementById("name").classList.add("error");
-      ok = false;
+      document.getElementById("err-name").textContent = "Enter a valid name (min 2 chars)";
+      document.getElementById("name").classList.add("error"); ok = false;
     }
     if (!stock || stock <= 0 || stock > 10000) {
-      document.getElementById("err-stock").textContent = "Enter a quantity between 1 and 10,000";
-      document.getElementById("stock").classList.add("error");
-      ok = false;
+      document.getElementById("err-stock").textContent = "Enter a quantity between 1–10,000";
+      document.getElementById("stock").classList.add("error"); ok = false;
     }
     if (!doses || doses <= 0 || doses > 20) {
-      document.getElementById("err-doses").textContent = "Enter doses between 1 and 20";
-      document.getElementById("doses").classList.add("error");
-      ok = false;
+      document.getElementById("err-doses").textContent = "Enter doses between 1–20";
+      document.getElementById("doses").classList.add("error"); ok = false;
     }
     return ok;
   }
 
   async function addMedicine() {
-    clearErrors();
+    clearFormErrors();
     if (!validate()) return;
-
     const btn = document.getElementById("addBtn");
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span> Adding...';
-
     const payload = {
       name:          document.getElementById("name").value.trim(),
       stock_qty:     parseInt(document.getElementById("stock").value),
       doses_per_day: parseInt(document.getElementById("doses").value),
     };
-
     try {
-      const res = await fetch(`${API}/medicines`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      const res  = await fetch("/medicines", { method: "POST", headers: {"Content-Type":"application/json"}, body: JSON.stringify(payload) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || "Server error");
-
-      showToast(`✅ ${data.name} added! Finishes on ${data.finish_date}`, "success");
+      showToast(`✅ ${data.name} added! Restock by ${data.restock_date}`);
       document.getElementById("name").value  = "";
       document.getElementById("stock").value = "";
       document.getElementById("doses").value = "";
       loadReport();
-    } catch (e) {
+    } catch(e) {
       showToast("❌ " + e.message, "fail");
     } finally {
       btn.disabled = false;
@@ -348,63 +306,148 @@
     }
   }
 
-  async function deleteMedicine(id, name) {
-    if (!confirm(`Remove "${name}" from the list?`)) return;
-    try {
-      await fetch(`${API}/medicines/${id}`, { method: "DELETE" });
-      showToast(`🗑️ ${name} removed`, "success");
-      loadReport();
-    } catch(e) {
-      showToast("❌ Could not delete", "fail");
-    }
+  // --- Stock bar ---
+  function stockBar(current, original) {
+    if (!original || original === 0) original = current;
+    const pct = Math.min(100, Math.max(0, Math.round((current / original) * 100)));
+    let cls = "bar-high";
+    if (pct <= 10) cls = "bar-critical";
+    else if (pct <= 25) cls = "bar-low";
+    else if (pct <= 50) cls = "bar-medium";
+    return `
+      <div class="stock-bar-wrap">
+        <div class="stock-bar-bg">
+          <div class="stock-bar-fill ${cls}" style="width:${pct}%"></div>
+        </div>
+        <span class="stock-label">${current} / ${original}</span>
+      </div>`;
   }
 
-  function statusBadge(restockDate) {
+  // --- Restock indicator ---
+  function restockIndicator(restockDate, isActive) {
+    if (!isActive) return `<span style="color:var(--disabled-txt);font-size:0.8rem">—</span>`;
     const today = new Date(); today.setHours(0,0,0,0);
     const rd    = new Date(restockDate);
     const diff  = Math.ceil((rd - today) / (1000*60*60*24));
-    if (diff <= 0)  return `<span class="status-badge status-urgent">🔴 Restock Now</span>`;
-    if (diff <= 3)  return `<span class="status-badge status-soon">🟡 Restock Soon</span>`;
-    return `<span class="status-badge status-ok">🟢 OK</span>`;
+    let tag = "";
+    if (diff < 0)      tag = `<span class="days-indicator days-overdue">🔴 Overdue</span>`;
+    else if (diff === 0) tag = `<span class="days-indicator days-1">🔴 Today!</span>`;
+    else if (diff === 1) tag = `<span class="days-indicator days-1">🔴 1 day left</span>`;
+    else if (diff === 2) tag = `<span class="days-indicator days-2">🟡 2 days left</span>`;
+    else if (diff === 3) tag = `<span class="days-indicator days-3">🟢 3 days left</span>`;
+    else                tag = `<span class="days-indicator days-ok">✅ ${diff} days</span>`;
+    return `<div class="restock-wrap"><span class="restock-date">${restockDate}</span>${tag}</div>`;
   }
 
+  // --- Restock modal ---
+  function openRestockModal(id, name, currentStock) {
+    currentRestockId   = id;
+    currentRestockName = name;
+    document.getElementById("modal-desc").textContent =
+      `"${name}" currently has ${currentStock} pills. Enter how many pills you are adding.`;
+    document.getElementById("restock-qty").value = "";
+    document.getElementById("err-restock").textContent = "";
+    document.getElementById("restockOverlay").classList.add("open");
+  }
+
+  function closeModal() {
+    document.getElementById("restockOverlay").classList.remove("open");
+    currentRestockId = null;
+  }
+
+  async function confirmRestock() {
+    const qty = parseInt(document.getElementById("restock-qty").value);
+    if (!qty || qty <= 0) {
+      document.getElementById("err-restock").textContent = "Enter a valid quantity";
+      return;
+    }
+    try {
+      const res  = await fetch(`/medicines/${currentRestockId}/restock`, {
+        method: "PATCH",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({ added_qty: qty })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Error");
+      showToast(`✅ ${currentRestockName} restocked! New total: ${data.current_stock} pills`);
+      closeModal();
+      loadReport();
+    } catch(e) {
+      showToast("❌ " + e.message, "fail");
+    }
+  }
+
+  // --- Toggle active/disabled ---
+  async function toggleMedicine(id, name, isActive) {
+    const action = isActive ? "disable" : "resume";
+    if (!confirm(`${isActive ? "Disable" : "Resume"} "${name}"?`)) return;
+    try {
+      const res  = await fetch(`/medicines/${id}/toggle`, { method: "PATCH" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Error");
+      showToast(data.is_active ? `▶️ ${name} resumed` : `⏸️ ${name} disabled`);
+      loadReport();
+    } catch(e) {
+      showToast("❌ " + e.message, "fail");
+    }
+  }
+
+  // --- Load report ---
   async function loadReport() {
     try {
-      const res  = await fetch(`${API}/medicines`);
+      const res  = await fetch("/medicines");
       const data = await res.json();
       const meds = data.medicines;
-      const tbody = document.getElementById("report-body");
       document.getElementById("count-badge").textContent =
         meds.length + " medicine" + (meds.length !== 1 ? "s" : "");
 
+      const tbody = document.getElementById("report-body");
       if (meds.length === 0) {
         tbody.innerHTML = `<tr><td colspan="8" class="empty"><span>💊</span>No medicines added yet.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = meds.map((m, i) => `
-        <tr>
-          <td style="color:var(--muted);font-size:0.85rem">${i + 1}</td>
-          <td><strong>${m.name}</strong></td>
-          <td>${m.stock_qty}</td>
-          <td>${m.doses_per_day}</td>
-          <td>${m.finish_date}</td>
-          <td><strong>${m.restock_date}</strong></td>
-          <td>${statusBadge(m.restock_date)}</td>
-          <td><button class="btn-del" onclick="deleteMedicine(${m.id}, '${m.name}')">✕ Remove</button></td>
-        </tr>
-      `).join("");
+      tbody.innerHTML = meds.map((m, i) => {
+        const disabled = !m.is_active;
+        const rowCls   = disabled ? "disabled-row" : "";
+        const nameCell = disabled
+          ? `<span style="text-decoration:line-through">${m.name}</span> <span style="font-size:0.75rem;color:var(--disabled-txt)">(disabled)</span>`
+          : `<strong>${m.name}</strong>`;
+        const toggleBtn = disabled
+          ? `<button class="btn btn-sm btn-resume" onclick="toggleMedicine(${m.id},'${m.name}',false)">▶️ Resume</button>`
+          : `<button class="btn btn-sm btn-disable" onclick="toggleMedicine(${m.id},'${m.name}',true)">⏸ Disable</button>`;
+        return `
+          <tr class="${rowCls}">
+            <td style="color:var(--muted);font-size:0.82rem">${i+1}</td>
+            <td>${nameCell}</td>
+            <td>${disabled ? `<span style="color:var(--disabled-txt)">${m.current_stock} pills</span>` : stockBar(m.current_stock, m.original_stock)}</td>
+            <td>${m.doses_per_day}</td>
+            <td style="color:var(--muted);font-size:0.82rem">${m.added_date}</td>
+            <td>${disabled ? `<span style="color:var(--disabled-txt)">${m.finish_date}</span>` : m.finish_date}</td>
+            <td>${restockIndicator(m.restock_date, m.is_active)}</td>
+            <td>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                ${disabled ? "" : `<button class="btn btn-sm btn-restock" onclick="openRestockModal(${m.id},'${m.name}',${m.current_stock})">🔄 Restock</button>`}
+                ${toggleBtn}
+              </div>
+            </td>
+          </tr>`;
+      }).join("");
     } catch(e) {
       console.error("Failed to load report", e);
     }
   }
 
-  // Allow Enter key to submit
-  document.addEventListener("keydown", e => {
-    if (e.key === "Enter") addMedicine();
+  // Close modal on overlay click
+  document.getElementById("restockOverlay").addEventListener("click", function(e) {
+    if (e.target === this) closeModal();
   });
 
-  // Load existing data on page open
+  document.addEventListener("keydown", e => {
+    if (e.key === "Enter" && !document.getElementById("restockOverlay").classList.contains("open")) addMedicine();
+    if (e.key === "Escape") closeModal();
+  });
+
   loadReport();
 </script>
 </body>
