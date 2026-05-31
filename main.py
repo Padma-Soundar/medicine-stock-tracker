@@ -88,7 +88,7 @@ def add_medicine(med: MedicineIn):
     try:
         today = date.today()
         finish_date, restock_date = calc_dates(med.stock_qty, med.doses_per_day, today)
-        next_id = conn.execute("SELECT NEXTVAL('medicine_id_seq')").fetchone()[0]
+        next_id = database.get_next_id(conn)
         conn.execute("""
             INSERT INTO medicines
             (id, name, original_stock, current_stock, doses_per_day, added_date, finish_date, restock_date, is_active)

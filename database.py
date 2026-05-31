@@ -5,9 +5,6 @@ DB_PATH = "my_database.db"
 
 def setup():
     conn = duckdb.connect(DB_PATH)
-
-    # Drop old table if exists to apply new schema (only in dev)
-    # In production you'd use ALTER TABLE instead
     conn.execute("""
         CREATE TABLE IF NOT EXISTS medicines (
             id              INTEGER PRIMARY KEY,
@@ -21,23 +18,14 @@ def setup():
             is_active       BOOLEAN NOT NULL DEFAULT TRUE
         )
     """)
-
-    # Add columns if they don't exist (for existing databases)
-    try:
-        conn.execute("ALTER TABLE medicines ADD COLUMN original_stock INTEGER DEFAULT 0")
-    except: pass
-    try:
-        conn.execute("ALTER TABLE medicines ADD COLUMN current_stock INTEGER DEFAULT 0")
-    except: pass
-    try:
-        conn.execute("ALTER TABLE medicines ADD COLUMN is_active BOOLEAN DEFAULT TRUE")
-    except: pass
-
-    conn.execute("""
-        CREATE SEQUENCE IF NOT EXISTS medicine_id_seq START 1
-    """)
     conn.close()
     print("✅ medicines table ready.")
+
+
+def get_next_id(conn):
+    """Get next available ID manually."""
+    row = conn.execute("SELECT COALESCE(MAX(id), 0) + 1 FROM medicines").fetchone()
+    return row[0]
 
 
 def get_connection():
